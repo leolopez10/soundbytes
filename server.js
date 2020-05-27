@@ -19,7 +19,6 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   //Send every other request to the React App
-  const path = require('path');
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });

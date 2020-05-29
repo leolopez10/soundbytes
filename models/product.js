@@ -20,10 +20,10 @@ const productSchema = new Schema(
     avatar: {
       type: String
     },
-    music: {
-      data: Buffer,
-      contentType: String
-    },
+    // music: {
+    //   data: Buffer,
+    //   contentType: String
+    // },
     likes: [
       {
         user: {

@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const routes = require('./routes');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-// const expressValidator = require('express-validator');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,7 +13,9 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json({ extended: false }));
 app.use(morgan('dev'));
 app.use(cookieParser());
-// app.use(expressValidator());
+
+// API Routes
+app.use(routes);
 
 //Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {

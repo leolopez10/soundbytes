@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bycrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const SALT_WORK_FACTOR = parseInt(process.env.SALT_WORK_FACTOR);
 
 const UserSchema = new Schema({
@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     require: true,
-    index: { unique: true },
+    unique: 32,
     match: [/.+@.+\..+/, 'Please enter a valid e-mail address']
   },
   password: {
@@ -59,6 +59,6 @@ UserSchema.methods.checkPassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model('user', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;

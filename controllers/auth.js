@@ -83,3 +83,8 @@ exports.signin = (req, res) => {
       .catch(err => res.status(400).json(err));
   });
 };
+
+exports.signout = (req, res) => {
+  res.clearCookie('x-auth-token');
+  res.json({ msg: 'Sign-out successful' });
+};

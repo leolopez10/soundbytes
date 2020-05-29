@@ -13,3 +13,7 @@ exports.signinValidator = [
   check('email', 'Please include a valid email').isEmail(),
   check('password', 'Password is required').exists()
 ];
+
+exports.postsValidator = [
+  check('title', 'What is your song title').not().isEmpty()
+];

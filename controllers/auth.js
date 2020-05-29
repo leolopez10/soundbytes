@@ -19,6 +19,7 @@ exports.signup = (req, res) => {
 
   // Create new user and save to database
   const user = new User(req.body);
+  user.avatar = gravatar.url(user.email, { s: '200', r: 'pg', d: 'mm' });
   user.save((err, user) => {
     if (err) {
       return res.status(400).json({
@@ -26,7 +27,6 @@ exports.signup = (req, res) => {
       });
     }
     user.password = undefined;
-    user.avatar = gravatar.url(user.email, { s: '200', r: 'pg', d: 'mm' });
 
     // Generate user token to login user immidately after signing up
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
@@ -69,14 +69,14 @@ exports.signin = (req, res) => {
         // persist the token as 'x-auth-token' in cookie with expiry date
         res.cookie('x-auth-token', token, { expiresIn: 360000 }); // 3600 is an hour
         //return response with user and token to frontend client
-        const { _id, name, email } = user;
+        const { _id, name, email, avatar } = user;
         return res.status(200).json({
           token,
           user: {
             _id,
             name,
             email,
-            avatar: gravatar.url(user.email, { s: '200', r: 'pg', d: 'mm' })
+            avatar
           }
         });
       })
@@ -88,3 +88,8 @@ exports.signout = (req, res) => {
   res.clearCookie('x-auth-token');
   res.json({ msg: 'Sign-out successful' });
 };
+
+exports.requireSignIn = expressJwt({
+  secret: process.env.JWT_SECRET,
+  userProperty: 'auth'
+});

@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const productSchema = new Schema(
+const postSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
       ref: 'users'
     },
-    name: {
+    title: {
       type: String,
       trim: true,
       require: true,
@@ -62,4 +62,4 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('product', productSchema);
+module.exports = mongoose.model('Post', postSchema);

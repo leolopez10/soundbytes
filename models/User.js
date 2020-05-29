@@ -15,8 +15,7 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     require: true,
-    unique: 32,
-    match: [/.+@.+\..+/, 'Please enter a valid e-mail address']
+    unique: 32
   },
   password: {
     type: String,
@@ -24,10 +23,6 @@ const UserSchema = new Schema({
   },
   avatar: {
     type: String
-  },
-  role: {
-    type: Number,
-    default: 0
   },
   date: {
     type: Date,

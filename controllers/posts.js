@@ -22,6 +22,7 @@ exports.createPost = (req, res) => {
     avatar: user.avatar
   });
 
+  // Save post information to database
   post.save((err, data) => {
     if (err) {
       return res.status(400).json({

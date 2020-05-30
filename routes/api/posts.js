@@ -12,7 +12,12 @@ const { userById } = require('../../controllers/user');
 const { postsValidator } = require('../../validators');
 
 router.post('/post/create/:userId', requireSignIn, postsValidator, createPost);
-router.post('/post/upload/:userId', uploadSingleFile, uploadSingleFileResponse);
+router.post(
+  '/post/upload',
+  requireSignIn,
+  uploadSingleFile,
+  uploadSingleFileResponse
+);
 
 // Parameter from URL
 router.param('userId', userById);

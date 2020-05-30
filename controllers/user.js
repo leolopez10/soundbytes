@@ -1,6 +1,5 @@
 // Model
 const User = require('../models/user');
-const { errorHandler } = require('../helpers/dbErrorHandler');
 
 exports.userById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {

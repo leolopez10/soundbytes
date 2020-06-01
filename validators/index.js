@@ -17,3 +17,7 @@ exports.signinValidator = [
 exports.postsValidator = [
   check('title', 'What is your song title').not().isEmpty()
 ];
+
+exports.commentValidator = [
+  check('description', 'Text is required').not().isEmpty()
+];

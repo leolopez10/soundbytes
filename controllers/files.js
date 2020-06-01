@@ -135,3 +135,76 @@ exports.remove = (req, res) => {
     }
   );
 };
+
+// @GET /image/:filename
+// @desc Display image
+exports.displayImage = (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    // Check if file exist
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        error: 'No file exist'
+      });
+    }
+
+    // Check if image
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+      // Read output to browser
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({
+        error: 'Not an image'
+      });
+    }
+  });
+};
+
+// @GET /audio/:filename
+// @desc Display audio recording
+exports.displayAudio = (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    // Check if file exist
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        error: 'No file exist'
+      });
+    }
+
+    // Check if audio
+    if (file.contentType === 'audio/mp4') {
+      // Read output to browser
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({
+        error: 'No audio file found'
+      });
+    }
+  });
+};
+
+// @route GET /
+// @desc Loads
+// app.get('/', (req, res) => {
+//   //   res.render('index');
+//   gfs.files.find().toArray((err, files) => {
+//     // Check if files exist
+//     if (!files || files.length === 0) {
+//       res.render('index', { files: false });
+//     } else {
+//       files.map(file => {
+//         if (
+//           file.contentType === 'image/jpeg' ||
+//           file.contentType === 'image/png'
+//         ) {
+//           file.isImage = true;
+//         } else {
+//           file.isImage = false;
+//           file.isAudio = true;
+//         }
+//       });
+//       res.render('index', { files: files });
+//     }
+//   });
+// });

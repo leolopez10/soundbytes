@@ -11,7 +11,7 @@ const postSchema = new Schema(
       type: String,
       trim: true,
       require: true,
-      maxlength: 32
+      maxlength: 100
     },
     description: {
       type: String,
@@ -38,7 +38,7 @@ const postSchema = new Schema(
           type: Schema.Types.ObjectId,
           ref: 'users'
         },
-        text: {
+        description: {
           type: String,
           required: true
         },
